@@ -778,7 +778,7 @@ Je t’aime.
           <div class="subtitle" style="font-size:14px; color:rgba(255,255,255,.86)">${item.caption || ""}</div>
         </div>
       `;
-
+        
       const frame = document.getElementById("photoFrame");
       if(frame){
         let startX = null;
@@ -790,6 +790,13 @@ Je t’aime.
           if(Math.abs(dx) < 35) return;
           if(dx < 0) albumNext(); else albumPrev();
         });
+        // tap simple = photo suivante
+        if(frame){
+          frame.addEventListener("click", () => {
+            albumNext();
+          });
+        }
+
       }
     }
 
