@@ -1,0 +1,1000 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Pour toi 💘</title>
+  <meta name="theme-color" content="#ff4da6" />
+
+  <style>
+    :root{
+      --bg1:#ff4da6;
+      --bg2:#ff8ac9;
+      --bg3:#ffd1e6;
+      --text: rgba(255,255,255,.95);
+      --muted: rgba(255,255,255,.75);
+      --deep: rgba(20, 10, 20, .65);
+      --shadow: 0 18px 55px rgba(20,10,25,.30);
+      --radius: 26px;
+      --accent:#ff2e93;
+      --ok:#42ffb7;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      color:var(--text);
+      overflow:hidden;
+      background:
+        radial-gradient(900px 700px at 18% 12%, rgba(255,255,255,.28), transparent 55%),
+        radial-gradient(900px 700px at 88% 18%, rgba(255,255,255,.20), transparent 60%),
+        radial-gradient(1100px 800px at 50% 110%, rgba(255,255,255,.22), transparent 60%),
+        linear-gradient(160deg, var(--bg1), var(--bg2) 45%, var(--bg3));
+    }
+
+    /* floating hearts background */
+    .hearts-bg{ position:absolute; inset:0; pointer-events:none; overflow:hidden; opacity:.75; }
+    .h{
+      position:absolute; font-size: 18px;
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.12));
+      animation: floatUp linear infinite;
+      opacity: 0;
+    }
+    @keyframes floatUp{
+      0%{ transform: translateY(40vh) translateX(0) scale(.9); opacity:0 }
+      10%{opacity:.55}
+      80%{opacity:.55}
+      100%{ transform: translateY(-120vh) translateX(var(--dx)) scale(1.2); opacity:0 }
+    }
+
+    .wrap{ position:relative; height:100%; display:grid; place-items:center; padding: 18px; }
+
+    .phone{
+      width:min(460px, 94vw);
+      aspect-ratio: 9/18;
+      max-height: 92vh;
+      position:relative;
+      border-radius: 36px;
+      background: rgba(255,255,255,.12);
+      border: 1px solid rgba(255,255,255,.28);
+      box-shadow: var(--shadow);
+      overflow:hidden;
+      backdrop-filter: blur(14px);
+    }
+
+    .topbar{
+      position:absolute; top:0; left:0; right:0;
+      padding: 14px 14px;
+      display:flex; align-items:center; justify-content:space-between; gap:10px;
+      z-index:5;
+    }
+    .chip{
+      display:inline-flex; align-items:center; gap:8px;
+      padding: 8px 12px;
+      border-radius:999px;
+      background: rgba(255,255,255,.22);
+      border: 1px solid rgba(255,255,255,.22);
+      font-size: 12.5px;
+      color: rgba(255,255,255,.90);
+      user-select:none;
+    }
+    .dot{ width:8px; height:8px; border-radius:999px; background: rgba(255,255,255,.9); box-shadow: 0 0 14px rgba(255,255,255,.55); }
+
+    .chipBtn{
+      cursor:pointer;
+      transition: transform .12s ease, filter .12s ease;
+    }
+    .chipBtn:active{ transform: translateY(1px) scale(.99) }
+
+    .screen{
+      position:absolute; inset:0;
+      padding: 64px 18px 18px;
+      display:grid;
+      grid-template-rows: auto auto 1fr auto;
+      gap: 14px;
+      z-index:2;
+    }
+
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,.26), rgba(255,255,255,.14));
+      border: 1px solid rgba(255,255,255,.26);
+      border-radius: var(--radius);
+      padding: 18px;
+      box-shadow: 0 14px 38px rgba(20,10,25,.18);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::before{
+      content:"";
+      position:absolute; inset:-2px;
+      background:
+        radial-gradient(480px 240px at 15% 20%, rgba(255,255,255,.20), transparent 60%),
+        radial-gradient(520px 260px at 85% 18%, rgba(255,255,255,.18), transparent 62%),
+        radial-gradient(520px 260px at 50% 115%, rgba(255,255,255,.14), transparent 62%);
+      pointer-events:none;
+    }
+
+    .title{
+      margin: 0;
+      font-size: clamp(26px, 4.8vw, 40px);
+      line-height: 1.05;
+      letter-spacing: -.6px;
+      position:relative;
+    }
+    .subtitle{
+      margin: 0;
+      color: rgba(255,255,255,.82);
+      line-height: 1.5;
+      font-size: 14.8px;
+      position:relative;
+    }
+
+    .bigHeart{
+      width: 86px; height: 86px;
+      margin: 6px auto 0;
+      border-radius: 26px;
+      display:grid;
+      place-items:center;
+      background: rgba(255,255,255,.22);
+      border: 1px solid rgba(255,255,255,.26);
+      box-shadow: 0 18px 40px rgba(20,10,25,.14);
+      position:relative;
+      overflow:hidden;
+    }
+    .bigHeart span{
+      font-size: 46px;
+      transform: translateY(2px);
+      filter: drop-shadow(0 10px 18px rgba(0,0,0,.14));
+      animation: thump 1.35s ease-in-out infinite;
+    }
+    @keyframes thump{
+      0%,100%{ transform: translateY(2px) scale(1) }
+      45%{ transform: translateY(2px) scale(1.12) }
+      70%{ transform: translateY(2px) scale(1.02) }
+    }
+
+    .progress{ display:flex; gap:8px; justify-content:center; padding-top: 2px; }
+    .p{ width: 10px; height: 10px; border-radius:999px; background: rgba(255,255,255,.35); border: 1px solid rgba(255,255,255,.25); }
+    .p.on{ background: rgba(255,255,255,.92); box-shadow: 0 0 16px rgba(255,255,255,.55); }
+
+    .actions{
+      display:flex; gap: 12px; flex-wrap:wrap;
+      justify-content:center; align-items:center;
+      margin-top: 10px; position:relative; z-index:3;
+    }
+    button{
+      appearance:none; border:0; cursor:pointer; font-weight:900;
+      border-radius: 18px; padding: 14px 16px; min-width: 165px;
+      transition: transform .12s ease, filter .12s ease, box-shadow .12s ease;
+      user-select:none;
+    }
+    button:active{transform: translateY(1px) scale(.99)}
+    .primary{
+      color: white;
+      background: linear-gradient(135deg, rgba(255,46,147,.98), rgba(255,138,201,.98));
+      box-shadow: 0 18px 48px rgba(255,46,147,.22);
+    }
+    .primary:hover{filter: brightness(1.04)}
+    .ghost{
+      background: rgba(255,255,255,.18);
+      border: 1px solid rgba(255,255,255,.24);
+      color: rgba(255,255,255,.92);
+      box-shadow: 0 14px 34px rgba(0,0,0,.12);
+    }
+
+    .tiny{ text-align:center; color: rgba(255,255,255,.78); font-size: 12.8px; padding: 2px 6px 0; }
+
+    .toast{
+      position:absolute; left:50%; bottom: 14px;
+      transform: translateX(-50%);
+      background: rgba(20,10,25,.55);
+      border: 1px solid rgba(255,255,255,.18);
+      color: rgba(255,255,255,.92);
+      padding: 10px 12px;
+      border-radius: 14px;
+      font-size: 13px;
+      display:none;
+      z-index:10;
+      max-width: calc(100% - 18px);
+      text-align:center;
+      backdrop-filter: blur(10px);
+    }
+    .toast.show{display:block; animation: pop .22s ease-out}
+    @keyframes pop{
+      from{transform: translateX(-50%) translateY(8px); opacity:0}
+      to{transform: translateX(-50%) translateY(0); opacity:1}
+    }
+
+    /* tap hearts */
+    .tapHeart{
+      position:absolute;
+      transform: translate(-50%,-50%);
+      font-size: 22px;
+      opacity: 0;
+      animation: tap 900ms ease-out forwards;
+      pointer-events:none;
+      filter: drop-shadow(0 12px 20px rgba(0,0,0,.14));
+      z-index:40;
+    }
+    @keyframes tap{
+      0%{opacity:0; transform: translate(-50%,-50%) scale(.8)}
+      15%{opacity:1}
+      100%{opacity:0; transform: translate(calc(-50% + var(--x)), calc(-50% - 80px)) scale(1.35)}
+    }
+
+    /* Album */
+    .albumWrap{ display:grid; gap:12px; position:relative; }
+    .photoFrame{
+      width:100%;
+      aspect-ratio: 4/5;
+      border-radius: 22px;
+      overflow:hidden;
+      border: 1px solid rgba(255,255,255,.26);
+      background: rgba(255,255,255,.14);
+      box-shadow: 0 16px 44px rgba(0,0,0,.14);
+      position:relative;
+    }
+    .photoFrame img{
+      width:100%; height:100%;
+      object-fit: cover;
+      transform: scale(1.02);
+      filter: saturate(1.05) contrast(1.02);
+    }
+    .photoOverlay{
+      position:absolute; inset:0;
+      background: linear-gradient(180deg, rgba(0,0,0,0) 55%, rgba(0,0,0,.22));
+      pointer-events:none;
+    }
+    .albumMeta{
+      display:flex; justify-content:space-between; align-items:center;
+      color: rgba(255,255,255,.86);
+      font-size: 13px;
+    }
+    .miniPills{ display:flex; gap:6px; align-items:center; }
+    .miniDot{
+      width:8px; height:8px; border-radius:999px;
+      background: rgba(255,255,255,.35);
+      border: 1px solid rgba(255,255,255,.20);
+    }
+    .miniDot.on{
+      background: rgba(255,255,255,.95);
+      box-shadow: 0 0 14px rgba(255,255,255,.45);
+    }
+
+    /* modal final */
+    .modal{
+      position:absolute; inset:0;
+      display:none;
+      place-items:center;
+      background: rgba(20,10,25,.40);
+      backdrop-filter: blur(10px);
+      z-index:50;
+      padding: 18px;
+    }
+    .modal.show{display:grid}
+    .modalCard{
+      width: 100%;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.16));
+      border: 1px solid rgba(255,255,255,.28);
+      box-shadow: 0 20px 60px rgba(0,0,0,.22);
+      padding: 18px;
+      text-align:center;
+      position:relative;
+      overflow:hidden;
+    }
+    .badge{
+      display:inline-flex; gap:8px; align-items:center;
+      padding: 9px 12px;
+      border-radius:999px;
+      background: rgba(66,255,183,.16);
+      border: 1px solid rgba(66,255,183,.28);
+      color: rgba(255,255,255,.94);
+      font-weight:900;
+      font-size: 12.5px;
+      margin-bottom: 10px;
+    }
+    .finalTitle{
+      margin: 6px 0 10px;
+      font-size: clamp(22px, 4.6vw, 34px);
+      line-height:1.1;
+      letter-spacing:-.5px;
+    }
+    .finalMsg{
+      margin:0;
+      color: rgba(255,255,255,.90);
+      line-height:1.6;
+      font-size: 15px;
+      white-space:pre-wrap;
+    }
+    .close{ margin-top: 14px; min-width: 210px; }
+
+    /* confetti canvas */
+    canvas#confetti{
+      position:absolute; inset:0;
+      pointer-events:none;
+      display:none;
+      z-index:60;
+    }
+    canvas#confetti.show{display:block}
+
+    /* ================================
+       🎭 CURTAINS INTRO (NEW)
+       ================================ */
+    .curtainOverlay{
+      position:absolute;
+      inset:0;
+      z-index:100;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+      cursor:pointer;
+      user-select:none;
+    }
+    .curtainOverlay::before{
+      content:"";
+      position:absolute;
+      inset:0;
+      background: radial-gradient(700px 500px at 50% 40%, rgba(255,255,255,.08), rgba(0,0,0,.12));
+      pointer-events:none;
+      opacity:.8;
+    }
+    .curtain{
+      position:absolute;
+      top:-6%;
+      height:112%;
+      width:56%;
+      background:
+        radial-gradient(120px 220px at 20% 20%, rgba(255,255,255,.12), transparent 60%),
+        radial-gradient(180px 260px at 80% 30%, rgba(255,255,255,.10), transparent 62%),
+        linear-gradient(180deg, rgba(180,0,70,.88), rgba(110,0,40,.90) 45%, rgba(60,0,25,.92));
+      border: 1px solid rgba(255,255,255,.10);
+      box-shadow: 0 30px 70px rgba(0,0,0,.35);
+      filter: saturate(1.1) contrast(1.05);
+    }
+    .curtain.left{
+      left:-6%;
+      border-top-right-radius: 28px;
+      border-bottom-right-radius: 28px;
+      background-image:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.12) 0 8px, rgba(0,0,0,.10) 8px 16px),
+        radial-gradient(120px 220px at 20% 20%, rgba(255,255,255,.10), transparent 60%),
+        linear-gradient(180deg, rgba(180,0,70,.88), rgba(110,0,40,.90) 45%, rgba(60,0,25,.92));
+      transform: translateX(0);
+      transform-origin: left center;
+    }
+    .curtain.right{
+      right:-6%;
+      border-top-left-radius: 28px;
+      border-bottom-left-radius: 28px;
+      background-image:
+        repeating-linear-gradient(90deg, rgba(255,255,255,.12) 0 8px, rgba(0,0,0,.10) 8px 16px),
+        radial-gradient(180px 260px at 80% 30%, rgba(255,255,255,.10), transparent 62%),
+        linear-gradient(180deg, rgba(180,0,70,.88), rgba(110,0,40,.90) 45%, rgba(60,0,25,.92));
+      transform: translateX(0);
+      transform-origin: right center;
+    }
+
+    .curtainCenter{
+      position:relative;
+      z-index:2;
+      text-align:center;
+      padding: 18px 16px;
+      border-radius: 20px;
+      background: rgba(255,255,255,.14);
+      border: 1px solid rgba(255,255,255,.18);
+      backdrop-filter: blur(10px);
+      box-shadow: 0 18px 55px rgba(0,0,0,.20);
+    }
+    .curtainTitle{
+      font-weight: 900;
+      letter-spacing: -.4px;
+      font-size: clamp(22px, 4.8vw, 34px);
+      color: rgba(255,255,255,.95);
+      text-shadow: 0 18px 45px rgba(0,0,0,.25);
+      margin-bottom: 6px;
+    }
+    .curtainSub{
+      font-size: 13.5px;
+      color: rgba(255,255,255,.85);
+      opacity:.95;
+      animation: curtainPulse 1.3s ease-in-out infinite;
+    }
+    @keyframes curtainPulse{
+      0%,100%{ transform: translateY(0); opacity:.88 }
+      50%{ transform: translateY(-2px); opacity:1 }
+    }
+
+    .curtainOverlay.opening .curtain.left{
+      animation: openLeft 900ms cubic-bezier(.2,.9,.2,1) forwards;
+    }
+    .curtainOverlay.opening .curtain.right{
+      animation: openRight 900ms cubic-bezier(.2,.9,.2,1) forwards;
+    }
+    .curtainOverlay.opening .curtainCenter{
+      animation: fadeCenter 520ms ease forwards;
+    }
+
+    @keyframes openLeft{
+      0%{ transform: translateX(0) }
+      70%{ transform: translateX(-78%) }
+      100%{ transform: translateX(-92%) }
+    }
+    @keyframes openRight{
+      0%{ transform: translateX(0) }
+      70%{ transform: translateX(78%) }
+      100%{ transform: translateX(92%) }
+    }
+    @keyframes fadeCenter{
+      0%{ opacity:1; transform: translateY(0) scale(1) }
+      100%{ opacity:0; transform: translateY(6px) scale(.98) }
+    }
+
+    .curtainOverlay.opened{
+      pointer-events:none;
+      animation: overlayOut 420ms ease forwards;
+      animation-delay: 780ms;
+    }
+    @keyframes overlayOut{
+      to{ opacity:0 }
+    }
+
+    @media (prefers-reduced-motion: reduce){
+      .curtainOverlay.opening .curtain.left,
+      .curtainOverlay.opening .curtain.right,
+      .curtainOverlay.opening .curtainCenter,
+      .curtainOverlay.opened{
+        animation: none !important;
+      }
+      .curtain.left{ transform: translateX(-92%) }
+      .curtain.right{ transform: translateX(92%) }
+      .curtainCenter{ opacity:0 }
+      .curtainOverlay{ opacity:0; pointer-events:none }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="hearts-bg" id="heartsBg"></div>
+
+  <div class="wrap">
+    <div class="phone" id="phone">
+
+      <!-- 🎭 CURTAINS INTRO (NEW) -->
+      <div class="curtainOverlay" id="curtainOverlay" role="button" aria-label="Ouvrir les rideaux">
+        <div class="curtain left"></div>
+        <div class="curtain right"></div>
+        <div class="curtainCenter">
+          <div class="curtainTitle">Pour toi 💘</div>
+          <div class="curtainSub">Tape n’importe où</div>
+        </div>
+      </div>
+
+      <div class="topbar">
+        <div class="chip"><span class="dot"></span> Pour toi</div>
+        <div class="chip chipBtn" id="musicBtn">🔇 Musique</div>
+      </div>
+
+      <div class="screen">
+        <div class="card">
+          <h1 class="title" id="title"></h1>
+          <p class="subtitle" id="subtitle"></p>
+
+          <div class="bigHeart"><span id="bigEmoji">💗</span></div>
+
+          <div class="progress" aria-hidden="true">
+            <div class="p on" id="p1"></div>
+            <div class="p" id="p2"></div>
+            <div class="p" id="p3"></div>
+            <div class="p" id="p4"></div>
+          </div>
+        </div>
+
+        <div class="card" id="card2">
+          <div id="contentArea"></div>
+          <div class="actions" id="actions"></div>
+          <div class="tiny" id="tiny"></div>
+        </div>
+
+        <div></div>
+
+        <div class="toast" id="toast"></div>
+      </div>
+
+      <div class="modal" id="modal">
+        <div class="modalCard">
+          <div class="badge">✅ Validé (avec amour)</div>
+          <div class="finalTitle" id="finalTitle"></div>
+          <p class="finalMsg" id="finalMsg"></p>
+          <button class="ghost close" id="closeBtn">Fermer</button>
+        </div>
+      </div>
+
+      <canvas id="confetti"></canvas>
+
+      <!-- Audio (mettre ton fichier dans assets/music.mp3) -->
+      <audio id="bgm" preload="auto" loop>
+        <source src="assets/music.mp3" type="audio/mpeg">
+      </audio>
+    </div>
+  </div>
+
+  <script>
+    // ====== EDIT ICI ======
+    const HER_NAME = "Sarah";
+    const YOUR_NAME = "Dylan";
+    const FINAL_MESSAGE =
+`${HER_NAME},
+
+(écris ton vrai message ici)
+
+Je t’aime.
+— ${YOUR_NAME}`;
+
+    // Album: remplace par tes 3 photos
+    const ALBUM = [
+      { src: "assets/p1.jpg", caption: "Toi + moi 💗" },
+      { src: "assets/p2.jpg", caption: "Ce moment là… 🥹" },
+      { src: "assets/p3.jpg", caption: "Encore plein comme ça ✨" },
+    ];
+
+    // vibration légère (mobile) : true/false
+    const VIBRATE = true;
+    // =====================
+
+    const phone = document.getElementById("phone");
+    const title = document.getElementById("title");
+    const subtitle = document.getElementById("subtitle");
+    const actions = document.getElementById("actions");
+    const tiny = document.getElementById("tiny");
+    const toast = document.getElementById("toast");
+    const modal = document.getElementById("modal");
+    const finalTitle = document.getElementById("finalTitle");
+    const finalMsg = document.getElementById("finalMsg");
+    const closeBtn = document.getElementById("closeBtn");
+    const bigEmoji = document.getElementById("bigEmoji");
+    const contentArea = document.getElementById("contentArea");
+
+    // progress dots
+    const p1 = document.getElementById("p1");
+    const p2 = document.getElementById("p2");
+    const p3 = document.getElementById("p3");
+    const p4 = document.getElementById("p4");
+
+    function vibrate(ms){
+      if(!VIBRATE) return;
+      if(navigator.vibrate) navigator.vibrate(ms);
+    }
+
+    function setDots(n){
+      [p1,p2,p3,p4].forEach((p,i)=>p.classList.toggle("on", i===n-1));
+    }
+
+    function showToast(msg){
+      toast.textContent = msg;
+      toast.classList.add("show");
+      clearTimeout(showToast._t);
+      showToast._t = setTimeout(()=>toast.classList.remove("show"), 1200);
+    }
+
+    // background hearts
+    const heartsBg = document.getElementById("heartsBg");
+    const bgHearts = ["💗","💖","💘","💞","💓","💕","💝"];
+    for(let i=0;i<18;i++){
+      const el = document.createElement("div");
+      el.className = "h";
+      el.textContent = bgHearts[Math.floor(Math.random()*bgHearts.length)];
+      el.style.left = (Math.random()*100) + "%";
+      el.style.top  = (Math.random()*100) + "%";
+      el.style.setProperty("--dx", ((Math.random()*2-1)*120) + "px");
+      el.style.animationDuration = (10 + Math.random()*16) + "s";
+      el.style.animationDelay = (Math.random()*6) + "s";
+      el.style.fontSize = (14 + Math.random()*18) + "px";
+      heartsBg.appendChild(el);
+    }
+
+    // tap hearts
+    const tapHearts = ["💗","💖","💕","💘","💞","💓"];
+    phone.addEventListener("pointerdown", (e)=>{
+      if(modal.classList.contains("show")) return;
+
+      // if curtains still present, do not spawn hearts on first tap (clean intro)
+      if(document.getElementById("curtainOverlay")) return;
+
+      const r = phone.getBoundingClientRect();
+      const x = e.clientX - r.left;
+      const y = e.clientY - r.top;
+
+      const heart = document.createElement("div");
+      heart.className = "tapHeart";
+      heart.textContent = tapHearts[Math.floor(Math.random()*tapHearts.length)];
+      heart.style.left = x + "px";
+      heart.style.top  = y + "px";
+      heart.style.setProperty("--x", ((Math.random()*2-1)*22) + "px");
+      phone.appendChild(heart);
+
+      setTimeout(()=>heart.remove(), 1000);
+    });
+
+    function littleHeartsBurst(n=10){
+      const r = phone.getBoundingClientRect();
+      for(let i=0;i<n;i++){
+        const x = r.width*(0.25 + Math.random()*0.5);
+        const y = r.height*(0.35 + Math.random()*0.35);
+        const heart = document.createElement("div");
+        heart.className = "tapHeart";
+        heart.textContent = tapHearts[Math.floor(Math.random()*tapHearts.length)];
+        heart.style.left = x + "px";
+        heart.style.top  = y + "px";
+        heart.style.setProperty("--x", ((Math.random()*2-1)*60) + "px");
+        phone.appendChild(heart);
+        setTimeout(()=>heart.remove(), 1000);
+      }
+    }
+
+    // ===== Musique (mobile-safe) =====
+    const bgm = document.getElementById("bgm");
+    const musicBtn = document.getElementById("musicBtn");
+    let musicOn = false;
+
+    async function toggleMusic(){
+      try{
+        if(!musicOn){
+          await bgm.play(); // needs user gesture
+          musicOn = true;
+          musicBtn.textContent = "🔊 Musique";
+          showToast("Musique ON 💞");
+          vibrate(15);
+        } else {
+          bgm.pause();
+          musicOn = false;
+          musicBtn.textContent = "🔇 Musique";
+          showToast("Musique OFF");
+          vibrate(10);
+        }
+      } catch(e){
+        showToast("Tape une fois puis réessaie 🎵");
+      }
+    }
+    musicBtn.addEventListener("click", (e)=>{ e.preventDefault(); toggleMusic(); });
+
+    // ===== Steps =====
+    let stepIndex = 0;
+    let dodgeCount = 0;
+    let albumIndex = 0;
+
+    const steps = [
+      {
+        dot: 1,
+        title: `Hey ${HER_NAME}… 💘`,
+        subtitle: `J’ai un petit truc pour toi. Promis, c’est mignon.`,
+        emoji: "💗",
+        renderContent: () => {
+          contentArea.innerHTML = `
+            <p class="subtitle" style="margin:0; font-size:15px;">
+              Avant tout… tu acceptes de recevoir une avalanche de cœurs ?
+            </p>
+          `;
+        },
+        buttons: [
+          { text: "Oui (j’assume)", type:"primary", next: true },
+          { text: "Je sais pas…", type:"ghost", joke:"Trop tard 😌" }
+        ],
+        tiny: "Tape n’importe où pour faire apparaître des cœurs."
+      },
+      {
+        dot: 2,
+        title: "Question très sérieuse 😳",
+        subtitle: "Réponds honnêtement… (sinon je boude fort)",
+        emoji: "💞",
+        renderContent: () => {
+          contentArea.innerHTML = `
+            <p class="subtitle" style="margin:0; font-size:17px; font-weight:900; color:rgba(255,255,255,.92)">
+              Est-ce que tu veux être ma Valentine ?
+            </p>
+          `;
+        },
+        buttons: [
+          { text: "OUI 💖", type:"primary", next: true },
+          { text: "Non", type:"ghost", dodge:true }
+        ],
+        tiny: "L’option “Non” est un peu… capricieuse."
+      },
+      {
+        dot: 3,
+        title: "Petit souvenir ✨",
+        subtitle: "Avant le final… regarde ça 😌",
+        emoji: "💝",
+        renderContent: renderAlbum,
+        buttons: [
+          { text: "Suivant ➜", type:"primary", albumNext:true },
+          { text: "Revoir ◀", type:"ghost", albumPrev:true }
+        ],
+        tiny: "Tu peux aussi swipe gauche/droite sur la photo."
+      },
+      {
+        dot: 4,
+        title: "Dernière étape 💞",
+        subtitle: "Ok… là c’est officiel.",
+        emoji: "💗",
+        renderContent: () => {
+          contentArea.innerHTML = `
+            <p class="subtitle" style="margin:0; font-size:15px;">
+              On valide ça comment ?
+            </p>
+          `;
+        },
+        buttons: [
+          { text: "Avec un bisou 😚", type:"primary", finish:true },
+          { text: "Avec un câlin 🤍", type:"ghost", finish:true }
+        ],
+        tiny: "Choisis ton style (je prends les deux)."
+      }
+    ];
+
+    function renderAlbum(){
+      if(!ALBUM.length){
+        contentArea.innerHTML = `<p class="subtitle" style="margin:0">Ajoute tes 3 photos dans ALBUM 🙂</p>`;
+        return;
+      }
+      albumIndex = Math.max(0, Math.min(ALBUM.length-1, albumIndex));
+      const item = ALBUM[albumIndex];
+      const dots = ALBUM.map((_,i)=>`<span class="miniDot ${i===albumIndex?"on":""}"></span>`).join("");
+
+      contentArea.innerHTML = `
+        <div class="albumWrap">
+          <div class="photoFrame" id="photoFrame">
+            <img src="${item.src}" alt="photo ${albumIndex+1}">
+            <div class="photoOverlay"></div>
+          </div>
+          <div class="albumMeta">
+            <div class="miniPills">${dots}</div>
+            <div>${albumIndex+1}/${ALBUM.length}</div>
+          </div>
+          <div class="subtitle" style="font-size:14px; color:rgba(255,255,255,.86)">${item.caption || ""}</div>
+        </div>
+      `;
+
+      const frame = document.getElementById("photoFrame");
+      if(frame){
+        let startX = null;
+        frame.addEventListener("pointerdown", (e)=>{ startX = e.clientX; });
+        frame.addEventListener("pointerup", (e)=>{
+          if(startX === null) return;
+          const dx = e.clientX - startX;
+          startX = null;
+          if(Math.abs(dx) < 35) return;
+          if(dx < 0) albumNext(); else albumPrev();
+        });
+      }
+    }
+
+    function renderStep(){
+      const s = steps[stepIndex];
+      setDots(s.dot);
+      title.textContent = s.title;
+      subtitle.textContent = s.subtitle;
+      bigEmoji.textContent = s.emoji;
+      tiny.textContent = s.tiny;
+
+      s.renderContent?.();
+
+      actions.innerHTML = "";
+      s.buttons.forEach((b)=>{
+        const btn = document.createElement("button");
+        btn.textContent = b.text;
+        btn.className = b.type === "primary" ? "primary" : "ghost";
+
+        btn.addEventListener("click", (e)=>{
+          e.preventDefault();
+
+          if(b.joke){
+            showToast(b.joke);
+            vibrate(10);
+            return;
+          }
+
+          if(b.dodge){
+            dodgeNo(btn);
+            littleHeartsBurst(6);
+            vibrate(12);
+            return;
+          }
+
+          if(b.albumNext){ albumNext(); return; }
+          if(b.albumPrev){ albumPrev(); return; }
+
+          if(b.finish){
+            openFinal();
+            return;
+          }
+
+          if(b.next){
+            stepIndex = Math.min(steps.length-1, stepIndex+1);
+            renderStep();
+            littleHeartsBurst(12);
+            vibrate(18);
+          }
+        });
+
+        actions.appendChild(btn);
+      });
+    }
+
+    function dodgeNo(btn){
+      dodgeCount++;
+      const phrases = ["Non", "T’es sûre ? 😭", "Non non non", "Refus refusé 😌", "Ok… bon…", "…ouais non"];
+      btn.textContent = phrases[Math.min(dodgeCount, phrases.length-1)];
+      showToast("Oups 😅 essaie l’autre bouton");
+
+      const card2 = document.getElementById("card2");
+      const rect = card2.getBoundingClientRect();
+      const b = btn.getBoundingClientRect();
+
+      const pad = 10;
+      const maxX = rect.width - b.width - pad;
+      const maxY = rect.height - b.height - pad;
+
+      btn.style.position = "absolute";
+      btn.style.left = (pad + Math.random()*Math.max(20,maxX)) + "px";
+      btn.style.top  = (pad + 46 + Math.random()*Math.max(20,maxY-46)) + "px";
+
+      btn.animate([
+        { transform:"scale(1) rotate(0deg)" },
+        { transform:"scale(1.05) rotate(-2deg)" },
+        { transform:"scale(1.02) rotate(2deg)" },
+        { transform:"scale(1) rotate(0deg)" }
+      ], { duration: 240, easing:"ease-out" });
+
+      if(dodgeCount >= 6){
+        btn.className = "primary";
+        btn.textContent = "Bon… OUI 💖";
+        btn.onclick = () => {
+          stepIndex = Math.min(steps.length-1, stepIndex+1);
+          renderStep();
+          littleHeartsBurst(14);
+          vibrate(22);
+        };
+      }
+    }
+
+    function albumNext(){
+      if(!ALBUM.length) return;
+      if(albumIndex < ALBUM.length - 1){
+        albumIndex++;
+        renderAlbum();
+        littleHeartsBurst(8);
+        vibrate(12);
+      } else {
+        stepIndex = Math.min(steps.length-1, stepIndex+1);
+        renderStep();
+        littleHeartsBurst(14);
+        vibrate(18);
+      }
+    }
+    function albumPrev(){
+      if(!ALBUM.length) return;
+      albumIndex = Math.max(0, albumIndex - 1);
+      renderAlbum();
+      vibrate(10);
+    }
+
+    // Final modal + confetti
+    finalMsg.textContent = FINAL_MESSAGE;
+
+    function openFinal(){
+      finalTitle.textContent = `Je suis trop heureux 🥹💗`;
+      finalMsg.textContent = FINAL_MESSAGE;
+      modal.classList.add("show");
+      showConfetti();
+      littleHeartsBurst(18);
+      vibrate(25);
+    }
+    closeBtn.addEventListener("click", ()=>{
+      modal.classList.remove("show");
+      stopConfetti();
+      vibrate(10);
+    });
+
+    // Confetti
+    const confettiCanvas = document.getElementById("confetti");
+    let confetti = [];
+    let raf = null;
+
+    function resizeCanvas(){
+      confettiCanvas.width = window.innerWidth * devicePixelRatio;
+      confettiCanvas.height = window.innerHeight * devicePixelRatio;
+      confettiCanvas.style.width = window.innerWidth + "px";
+      confettiCanvas.style.height = window.innerHeight + "px";
+    }
+    window.addEventListener("resize", resizeCanvas);
+
+    function showConfetti(){
+      confettiCanvas.classList.add("show");
+      resizeCanvas();
+      const w = confettiCanvas.width, h = confettiCanvas.height;
+      const ctx = confettiCanvas.getContext("2d");
+
+      const palette = ["#ffffff","#ffe36e","#ff2e93","#ff8ac9","#42ffb7"];
+      confetti = Array.from({length: 200}).map(()=>({
+        x: Math.random()*w,
+        y: -Math.random()*h*0.2,
+        r: (4 + Math.random()*8) * devicePixelRatio,
+        vx: (-2 + Math.random()*4) * devicePixelRatio,
+        vy: (3 + Math.random()*7) * devicePixelRatio,
+        rot: Math.random()*Math.PI,
+        vr: (-0.14 + Math.random()*0.28),
+        c: palette[Math.floor(Math.random()*palette.length)]
+      }));
+
+      function tick(){
+        ctx.clearRect(0,0,w,h);
+        for(const p of confetti){
+          p.x += p.vx;
+          p.y += p.vy;
+          p.rot += p.vr;
+          p.vy *= 0.994;
+          p.vy += 0.06 * devicePixelRatio;
+
+          ctx.save();
+          ctx.translate(p.x, p.y);
+          ctx.rotate(p.rot);
+          ctx.globalAlpha = 0.95;
+          ctx.fillStyle = p.c;
+          ctx.fillRect(-p.r/2, -p.r/2, p.r, p.r*0.65);
+          ctx.restore();
+        }
+        confetti = confetti.filter(p => p.y < h + 40*devicePixelRatio);
+        if(confetti.length) raf = requestAnimationFrame(tick);
+        else stopConfetti();
+      }
+      tick();
+    }
+
+    function stopConfetti(){
+      confettiCanvas.classList.remove("show");
+      if(raf) cancelAnimationFrame(raf);
+      raf = null;
+      confetti = [];
+    }
+
+    // ================================
+    // 🎭 CURTAINS INTRO (NEW)
+    // ================================
+    const curtainOverlay = document.getElementById("curtainOverlay");
+
+    function openCurtains(){
+      if(!curtainOverlay) return;
+      if(curtainOverlay.classList.contains("opening") || curtainOverlay.classList.contains("opened")) return;
+
+      curtainOverlay.classList.add("opening");
+
+      setTimeout(() => {
+        curtainOverlay.classList.add("opened");
+        setTimeout(() => curtainOverlay.remove(), 520);
+      }, 920);
+    }
+
+    if(curtainOverlay){
+      curtainOverlay.addEventListener("pointerdown", (e) => {
+        e.preventDefault();
+        openCurtains();
+        // optional: little burst right after opening starts
+        setTimeout(()=>{ if(typeof littleHeartsBurst==="function") littleHeartsBurst(10); }, 120);
+      });
+
+      curtainOverlay.tabIndex = 0;
+      curtainOverlay.addEventListener("keydown", (e) => {
+        if(e.key === "Enter" || e.key === " "){
+          e.preventDefault();
+          openCurtains();
+        }
+      });
+    }
+
+    // init
+    renderStep();
+  </script>
+</body>
+</html>
