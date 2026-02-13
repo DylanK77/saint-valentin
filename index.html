@@ -52,7 +52,8 @@
 
     .phone{
       width:min(460px, 94vw);
-      aspect-ratio: 9/18;
+      /*aspect-ratio: 9/18;*/
+      height: 92vh; 
       max-height: 92vh;
       position:relative;
       border-radius: 36px;
@@ -91,9 +92,11 @@
       position:absolute; inset:0;
       padding: 64px 18px 18px;
       display:grid;
-      grid-template-rows: auto auto 1fr auto;
+      grid-template-rows: auto 1fr auto;
       gap: 14px;
       z-index:2;
+      overflow-y: auto;          /* ✅ scroll */
+      -webkit-overflow-scrolling: touch; /* ✅ scroll fluide iOS/Android */
     }
 
     .card{
@@ -275,6 +278,10 @@
     .modal.show{display:grid}
     .modalCard{
       width: 100%;
+      max-height: 80vh;                 /* important pour mobile */
+      overflow-y: auto;                 /* scroll vertical */
+      -webkit-overflow-scrolling: touch;/* scroll fluide iOS/Android */
+
       border-radius: 28px;
       background: linear-gradient(180deg, rgba(255,255,255,.28), rgba(255,255,255,.16));
       border: 1px solid rgba(255,255,255,.28);
@@ -282,8 +289,8 @@
       padding: 18px;
       text-align:center;
       position:relative;
-      overflow:hidden;
     }
+
     .badge{
       display:inline-flex; gap:8px; align-items:center;
       padding: 9px 12px;
@@ -522,9 +529,25 @@
 
   <script>
     // ====== EDIT ICI ======
-    const HER_NAME = "Sarah";
+    const HER_NAME = "Sarah-Lou";
     const YOUR_NAME = "Dylan";
-    const FINAL_MESSAGE =
+    const FINAL_MESSAGE = `Bonsoir mon amour,
+
+Je suis très heureux de partager cette quatrième Saint-Valentin avec toi ce soir. Je t’écris au nom de notre amour et de notre persévérance à vouloir bien faire pour nous deux.
+
+Malgré toutes nos expériences, toutes nos aventures, nos engueulades et les bons moments passés, on a toujours réussi à garder la tête haute et à avancer, à s’écouter, à se comprendre, même si parfois c’est compliqué. On finit toujours par faire les choses bien.
+
+Je suis vraiment très, très content d’être avec toi. Je préfère te le rappeler : même si parfois je te dis certaines choses ou que je peux te faire des reproches, ce n’est jamais parce que je t’en veux. C’est simplement parce que j’ai envie que tout se passe bien entre nous, parce que notre relation compte énormément pour moi.
+
+La vérité, c’est que je te trouve incroyablement magnifique. Ton corps est magnifique, tes yeux sont magnifiques, tes cheveux sont magnifiques. Je n’ai pas un seul détail que je n’aime pas chez toi. Même les choses que toi tu ne trouves pas belles, moi je les trouve belles, parce qu’elles font partie de toi.
+
+J’essaie parfois de te pousser à être la meilleure version de toi-même, mais jamais pour te changer. Seulement parce que je crois en toi, en ta force, en tout ce que tu es capable d’accomplir. Tu es intelligente, courageuse, persévérante. Même quand c’est dur, tu continues d’avancer.
+
+Tu me réconfortes, tu m’apaises, tu me fais du bien, et je suis tellement chanceux de t’avoir à mes côtés.
+
+J’ai envie qu’on continue comme ça. J’ai envie de voyager avec toi, de construire une vie formidable, ensemble. Alors je me démène pour notre futur, pour qu’on ne manque de rien, pour qu’on puisse réaliser nos rêves et profiter de tout ce que la vie nous offrira.
+
+Je t’aime à la folie ❤️`;
 `${HER_NAME},
 
 (écris ton vrai message ici)
